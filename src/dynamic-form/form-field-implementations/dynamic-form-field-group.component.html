@@ -1,0 +1,18 @@
+<ng-container [formGroup]="control">
+
+    <div [ngClass]="field.classes">
+        <div class="mt-3 col-12 data-class-title" *ngIf="field.labelKey" [resource]="field.labelKey"
+            [resourceAsHtml]="true"> {{ field.label }} </div>
+        <div class="mt-3 col-12 data-class-title" *ngIf="!field.labelKey && field.label">
+            {{ field.label }} </div>
+
+        <div class="col-12 pt-2 error" *ngIf="control.errors">
+            <app-dynamic-form-errors [control]="control" [field]="field"></app-dynamic-form-errors>
+        </div>
+
+        <div class="col-12 pt-2 font-sm mb-2" *ngIf="control.pending">
+            <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+        </div>
+    </div>
+
+</ng-container>

@@ -1,0 +1,54 @@
+<mat-form-field appearance="standard" [class.manual-error]="hasError()">
+    <mat-label *ngIf="field.labelKey" [resource]="field.labelKey"></mat-label>
+    <mat-label *ngIf="!field.labelKey">{{ field.label }}</mat-label>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
+            <ng-container *ngIf="option.labelKey; else planeLabelCont">
+                <span [resource]="option.labelKey"></span>
+            </ng-container>
+            <ng-template #planeLabelCont>
+                <span>{{ option.label }}</span>
+            </ng-template>
+        </mat-option>
+    </mat-autocomplete>
+
+    <mat-chip-list #chipList>
+        <mat-chip *ngFor="let value of controlValue; let i=index" [selectable]="true" [removable]="true"
+            (removed)="remove(i)">
+            <ng-container *ngTemplateOutlet="optionTemp; context: { $implicit: getOptionFromValue(value) }">
+            </ng-container>
+            <ng-template #optionTemp let-option>
+                <ng-container *ngIf="option?.labelKey; else planeLabelCont">
+                    <span [resource]="option.labelKey"></span>
+                </ng-container>
+                <ng-template #planeLabelCont>
+                    <span>{{ option?.label || option }}</span>
+                </ng-template>
+            </ng-template>
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <input #searchInput [formControl]="acControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [placeholder]="field.placeholderKey ? (field.placeholderKey | labelsResources) : (field.placeholder || '...')"
+            (blur)="control.markAsTouched()" #trigger="matAutocompleteTrigger" (click)="trigger.openPanel()"
+            (matChipInputTokenEnd)="add()" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+    </mat-chip-list>
+
+    <button type="button" mat-button tabindex="-1" *ngIf="controlValue?.length" matSuffix mat-icon-button
+        aria-label="Clear field" (click)="control.setValue([])">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- Manually add the error section an animation do to unable to assign control to form-field -->
+    <div class="mat-form-field-subscript-wrapper manual-error" *ngIf="hasError()" @slideInOutAnimation>
+        <div class="mat-error">
+            <app-dynamic-form-errors [control]="control" [field]="field"></app-dynamic-form-errors>
+        </div>
+    </div>
+
+    <mat-hint *ngIf="!hasError()" @slideInOutAnimation>
+        <span resource="Global_DF_ChipFieldHint"></span>
+        <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+    </mat-hint>
+</mat-form-field>

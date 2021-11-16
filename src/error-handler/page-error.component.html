@@ -1,0 +1,95 @@
+<div class="error-container">
+    <h2 class="headline err-title">{{ error?.title }}</h2>
+    <p class="err-text" [innerHTML]="error?.text"></p>
+    <p class="error-text" *ngIf="error?.displayErrorCode && errorCode">
+        <strong resource="ErrorHand_Code"></strong> {{ errorCode }}
+    </p>
+
+    <div *ngIf="error?.displayActionsBtns">
+
+        <ng-container *ngIf="(isAppInitialized$ | async) === false; else initializedActions">
+
+            <a class="mt-2" type="button" mat-raised-button href="/">
+                <ng-container *ngIf="('ErrorHand_TryAgainBtn' | labelsResourceExist); else boBackLbFallback">
+                    <span class="ms-2" resource="ErrorHand_TryAgainBtn"></span>
+                </ng-container>
+                <ng-template #boBackLbFallback>
+                    <span class="ms-2">Try again</span>
+                </ng-template>
+            </a>
+
+        </ng-container>
+
+        <ng-template #initializedActions>
+            <button class="mt-2" *ngIf="isAuthenticated$ | async; else loginElm" type="button" mat-raised-button
+                (click)="back()">
+                <i class="fa fa-chevron-left"></i>
+
+                <ng-container *ngIf="('ErrorHand_Bk' | labelsResourceExist); else boBackLbFallback">
+                    <span class="ms-2" resource="ErrorHand_Bk"></span>
+                </ng-container>
+                <ng-template #boBackLbFallback>
+                    <span class="ms-2">Go back</span>
+                </ng-template>
+            </button>
+
+            <ng-template #loginElm>
+                <button class="mt-2" type="button" mat-raised-button (click)="login()">
+                    <i class="fa fa-sign-in-alt"></i>
+                    <ng-container *ngIf="('ErrorHand_Login' | labelsResourceExist); else loginLbFallback">
+                        <span class="ms-2" resource="ErrorHand_Login"></span>
+                    </ng-container>
+                    <ng-template #loginLbFallback>
+                        <span class="ms-2">Login</span>
+                    </ng-template>
+                </button>
+            </ng-template>
+        </ng-template>
+
+    </div>
+</div>
+
+<div class="log-error-area" *ngIf="displayErrorMsg">
+    <h5>
+        <ng-container *ngIf="('ErrorHand_LgTitle' | labelsResourceExist); else errorLogTitleLbFallback1">
+            <span class="ms-2" resource="ErrorHand_LgTitle"></span>
+        </ng-container>
+        <ng-template #errorLogTitleLbFallback1>
+            <span class="ms-2">Error Log</span>
+        </ng-template>
+
+        <button class="f-right" type="button" mat-raised-button color="warn" (click)="close()">
+            <mat-icon>close</mat-icon>
+            <ng-container *ngIf="('ErrorHand_LgClose' | labelsResourceExist); else closeStackTraceLbFallback1">
+                <span class="ms-2" resource="ErrorHand_LgClose"></span>
+            </ng-container>
+            <ng-template #closeStackTraceLbFallback1>
+                <span class="ms-2">Close</span>
+            </ng-template>
+        </button>
+    </h5>
+
+    <pre *ngIf="!isHttpError; else httpError">
+<strong>Message:</strong> {{ logError.message }}
+<strong>Stack Trace:</strong><p class="m-0 p-0 ps-4">{{ logError.stack }}</p>
+</pre>
+
+    <ng-template #httpError>
+        <pre>
+<strong>Message:</strong> {{ logError.message }}
+<strong>Status:</strong> {{ logError.status }}
+<strong>Url:</strong> {{ logError.url }}
+<strong>Error:</strong><p class="m-0 p-0 ps-4">{{ logError.error | json }}</p>
+</pre>
+    </ng-template>
+
+    <button mat-raised-button color="warn" (click)="close()">
+        <mat-icon>close</mat-icon>
+        <ng-container *ngIf="('ErrorHand_LgClose' | labelsResourceExist); else closeStackTraceLbFallback2">
+            <span class="ms-2" resource="ErrorHand_LgClose"></span>
+        </ng-container>
+        <ng-template #closeStackTraceLbFallback2>
+            <span class="ms-2">Close</span>
+        </ng-template>
+    </button>
+</div>

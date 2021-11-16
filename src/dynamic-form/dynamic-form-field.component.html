@@ -1,0 +1,85 @@
+<ng-container *ngIf="field.visible" [formGroup]="form" [ngSwitch]="field.controlType">
+
+    <ng-container *ngSwitchCase="controlTypeEnum.input">
+        <app-dynamic-form-field-input [control]="formControl" [field]="inputField"></app-dynamic-form-field-input>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.datePicker">
+        <app-dynamic-form-field-date-picker [control]="formControl" [field]="datePickerField">
+        </app-dynamic-form-field-date-picker>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.dropdown">
+        <app-dynamic-form-field-dropdown [control]="formControl" [field]="dropDownField">
+        </app-dynamic-form-field-dropdown>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.autocomplete">
+        <app-dynamic-form-field-autocomplete [control]="formControl" [field]="autoCompleteField">
+        </app-dynamic-form-field-autocomplete>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.textarea">
+        <app-dynamic-form-field-textarea [control]="formControl" [field]="textAreaField">
+        </app-dynamic-form-field-textarea>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.hidden">
+        <input type="hidden" [formControl]="formControl" />
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.group">
+        <app-dynamic-form-field-group [control]="formGroup" [field]="groupField">
+        </app-dynamic-form-field-group>
+
+        <div [ngClass]="field.classes" *ngIf="groupField.fields?.length">
+            <app-dynamic-form-field *ngFor="let nestedField of groupField.fields" [field]="nestedField"
+                [form]="formGroup">
+            </app-dynamic-form-field>
+        </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.chipInput">
+        <app-dynamic-form-field-chip-input [control]="formControl" [field]="chipInputField">
+        </app-dynamic-form-field-chip-input>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.chipAutocomplete">
+        <app-dynamic-form-field-chip-autocomplete [control]="formControl" [field]="chipAutoCompleteField">
+        </app-dynamic-form-field-chip-autocomplete>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="controlTypeEnum.slideToggle">
+        <app-dynamic-form-field-slide-toggle [control]="formControl" [field]="slideToggleCompleteField">
+        </app-dynamic-form-field-slide-toggle>
+    </ng-container>
+
+    <ng-container [formArrayName]="arrayField.key" *ngSwitchCase="controlTypeEnum.array">
+        <app-dynamic-form-field-array [control]="formArray" [field]="arrayField">
+        </app-dynamic-form-field-array>
+
+        <div class="arr-fields-cont" [ngClass]="arrayField.fieldContainerClasses || []"
+            *ngFor="let formArrayControl of formArray.controls; let i=index">
+            <ng-container [formGroupName]="i">
+                <app-dynamic-form-field [field]="arrayField.field" [form]="form" [fieldControl]="formArrayControl">
+                </app-dynamic-form-field>
+            </ng-container>
+            <button class="arr-del" type="button" mat-icon-button color="warn" (click)="formArray.removeAt(i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+        <button class="arr-add" type="button" mat-stroked-button (click)="formArray.push(arrayField.getControl())">
+            <mat-icon>add</mat-icon>
+            <span *ngIf="arrayField.addButtonLabelKey" [resource]="arrayField.addButtonLabelKey"></span>
+            <span *ngIf="!arrayField.addButtonLabelKey">{{ arrayField.addButtonLabel }}</span>
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+        <p class="text-center" style="color: red">
+            FieldType <strong>"{{ field.controlType }}"</strong> not supported :(
+        </p>
+    </ng-container>
+
+</ng-container>

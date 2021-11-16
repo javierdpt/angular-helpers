@@ -1,0 +1,25 @@
+<div class="filter-box d-flex flex-row p-2" [ngClass]="customClasses" *ngIf="displayed">
+    <div class="free-form d-flex alight-items-center flex-grow-1 pe-2 position-relative">
+        <ng-container *ngIf="!globalTerm else closeBtnSec">
+            <button mat-button disabled color="primary" class="sm p-0" tabindex="-1">
+                <mat-icon>filter_alt</mat-icon>
+            </button>
+        </ng-container>
+
+        <ng-template #closeBtnSec>
+            <button mat-button color="primary" class="sm p-0" tabindex="-1" (click)="globalTerm = null">
+                <mat-icon>close</mat-icon>
+            </button>
+        </ng-template>
+
+        <input #searchInput class="w-100" matInput [(ngModel)]="globalTerm" [attr.data-lr]="placeHolderLabelKey"
+            [placeholder]="placeHolderLabelKey | labelsResources">
+    </div>
+
+    <div class="specifics d-flex alight-items-center">
+    </div>
+
+    <button *ngIf="closeAble" mat-button color="primary" class="sm p-0" tabindex="-1" (click)="toggleDisplay()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>

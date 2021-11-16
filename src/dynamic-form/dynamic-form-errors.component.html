@@ -1,0 +1,38 @@
+<ng-container [ngSwitch]="field.controlType">
+    <!-- Check for basic DatePicker default errors -->
+    <ng-container *ngSwitchCase="controlTypeEnum.datePicker">
+        <span *ngIf="control.hasError('matDatepickerParse')" resource="Global_FormErr_DateInv" [resourceAsHtml]="true">
+        </span>
+
+        <span *ngIf="!control.hasError('matDatepickerParse') && control.hasError('required')"
+            resource="Global_FormErr_Required"
+            [resourceAttributes]="field.labelKey ? (field.labelKey | labelsResources) : field.label || null"
+            [resourceAsHtml]="true">
+        </span>
+
+        <span *ngIf="control.hasError('matDatepickerMax')" resource="Global_FormErr_MaxDate"
+            [resourceAttributes]="[field.labelKey ? (field.labelKey | labelsResources) : field.label || null, control.getError('matDatepickerMax')?.max | date : 'MM/dd/yyyy']"
+            [resourceAsHtml]="true">
+        </span>
+
+        <span *ngIf="control.hasError('matDatepickerMin')" resource="Global_FormErr_MinDate"
+            [resourceAttributes]="[field.labelKey ? (field.labelKey | labelsResources) : field.label || null, control.getError('matDatepickerMin')?.min | date : 'MM/dd/yyyy']"
+            [resourceAsHtml]="true">
+        </span>
+    </ng-container>
+
+    <!-- Check for the required validator by default -->
+    <ng-container *ngSwitchDefault>
+        <span *ngIf="control.hasError('required')" resource="Global_FormErr_Required"
+            [resourceAttributes]="field.labelKey ? (field.labelKey | labelsResources) : field.label || null"
+            [resourceAsHtml]="true">
+        </span>
+    </ng-container>
+</ng-container>
+
+<ng-container *ngFor="let validator of validators">
+    <span *ngIf="validator.errorMessageKey && validator.display()" [resource]="validator.errorMessageKey"
+        [resourceAsHtml]="true"></span>
+    <span *ngIf="!validator.errorMessageKey && validator.errorMessage && validator.display()"
+        [innerHtml]="validator.errorMessage || ('MISSING ERROR MESSAGE FOR ' + ( validator.validatorErrorCode || ''))"></span>
+</ng-container>

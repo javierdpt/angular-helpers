@@ -1,0 +1,9 @@
+<div *ngIf="!hidden && configs?.position === 'right'" [class.dark]="(appTheme$ | async) === appThemesEnum.night"
+    [ngStyle]="sideModalContainerStyles" @slideInOutRightToLeftAnimation class="side-modal-container right">
+    <ng-template [sideModalHost]></ng-template>
+</div>
+
+<div *ngIf="!hidden && configs?.position === 'left'" [class.dark]="(appTheme$ | async) === appThemesEnum.night"
+    [ngStyle]="sideModalContainerStyles" @slideInOutLeftToRightAnimation class="side-modal-container left">
+    <ng-template [sideModalHost]></ng-template>
+</div>

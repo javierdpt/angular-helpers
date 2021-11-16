@@ -1,0 +1,23 @@
+<mat-form-field appearance="standard">
+    <mat-label *ngIf="field.labelKey" [resource]="field.labelKey"></mat-label>
+    <mat-label *ngIf="!field.labelKey">{{ field.label }}</mat-label>
+    <input matInput [matDatepicker]="startDatePicker" [formControl]="control" [max]="max" [min]="min">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker">
+        
+    </mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+
+    <button type="button" class="clear second" mat-button tabindex="-1" *ngIf="control.value" matSuffix mat-icon-button
+        aria-label="Clear field" (click)="control.setValue(null)">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-error>
+        <app-dynamic-form-errors [control]="control" [field]="field">
+        </app-dynamic-form-errors>
+    </mat-error>
+
+    <mat-hint>
+        <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+    </mat-hint>
+</mat-form-field>
