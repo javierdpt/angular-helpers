@@ -1,0 +1,29 @@
+<mat-form-field appearance="standard">
+    <mat-label *ngIf="field.labelKey" [resource]="field.labelKey"></mat-label>
+    <mat-label *ngIf="!field.labelKey">{{ field.label }}</mat-label>
+
+    <mat-select [formControl]="control" [id]="field.key">
+        <ng-container *ngFor="let option of field.options">
+            <ng-container *ngIf="option.labelKey; else planeLabelCont">
+                <mat-option [value]="option.value" [resource]="option.labelKey"></mat-option>
+            </ng-container>
+            <ng-template #planeLabelCont>
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            </ng-template>
+        </ng-container>
+    </mat-select>
+
+    <button type="button" mat-button tabindex="-1" *ngIf="control.value" matSuffix mat-icon-button
+        aria-label="Clear field" (click)="control.setValue(null)">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-error>
+        <app-dynamic-form-errors [control]="control" [field]="field">
+        </app-dynamic-form-errors>
+    </mat-error>
+
+    <mat-hint>
+        <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+    </mat-hint>
+</mat-form-field>

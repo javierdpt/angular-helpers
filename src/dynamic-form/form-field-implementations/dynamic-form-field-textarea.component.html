@@ -1,0 +1,19 @@
+<mat-form-field appearance="standard">
+    <mat-label *ngIf="field.labelKey" [resource]="field.labelKey"></mat-label>
+    <mat-label *ngIf="!field.labelKey">{{ field.label }}</mat-label>
+    <textarea [rows]="field.rows" matInput [formControl]="control" [id]="field.key"></textarea>
+
+    <button type="button" mat-button tabindex="-1" *ngIf="control.value" matSuffix mat-icon-button
+        aria-label="Clear field" (click)="control.setValue(null)">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-error>
+        <app-dynamic-form-errors [control]="control" [field]="field">
+        </app-dynamic-form-errors>
+    </mat-error>
+
+    <mat-hint>
+        <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+    </mat-hint>
+</mat-form-field>

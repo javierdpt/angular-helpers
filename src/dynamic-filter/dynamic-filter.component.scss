@@ -1,0 +1,25 @@
+.filter-box {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #eeeeee;
+  border-bottom: solid 2px #d8d8d8;
+
+  .free-form {
+    input {
+      font-family: 'Open Sans';
+      font-size: 1rem;
+      border: none;
+      background-color: transparent;
+      caret-color: #7b7b7b;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &.transparent {
+    background-color: transparent;
+    border: none;
+  }
+}

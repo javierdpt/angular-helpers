@@ -1,0 +1,12 @@
+<p *ngIf="field.labelKey || field.label">
+    <span *ngIf="field.labelKey" [resource]="field.labelKey"></span>
+    <span *ngIf="!field.labelKey">{{ field.label }}</span>
+</p>
+
+<div class="col-12 pt-2 error" *ngIf="control.errors">
+    <app-dynamic-form-errors [control]="control" [field]="field"></app-dynamic-form-errors>
+</div>
+
+<div class="col-12 pt-2 font-sm mb-2" *ngIf="control.pending">
+    <app-dynamic-form-pending [control]="control" [field]="field"></app-dynamic-form-pending>
+</div>

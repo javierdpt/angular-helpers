@@ -1,0 +1,8 @@
+<ng-container *ngFor="let pendingMsg of pending">
+
+    <app-mat-progress-spinner [diameter]="20" *ngIf="pendingMsg.display()"
+        [attr.data-lr]="pendingMsg.pendingMessageKey || ''" [removePadding]="true"
+        [text]="pendingMsg.pendingMessageKey ? (pendingMsg.pendingMessageKey | labelsResources) : pendingMsg.pendingMessage">
+    </app-mat-progress-spinner>
+
+</ng-container>
