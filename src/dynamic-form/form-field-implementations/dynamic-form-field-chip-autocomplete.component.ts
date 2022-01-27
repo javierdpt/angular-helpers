@@ -19,7 +19,6 @@ import { ChipAutoCompleteField } from '../dynamic-form.model';
 export class DynamicFormFieldChipAutoCompleteComponent extends BaseUnsubscribeComponent implements OnInit {
     @Input() field!: ChipAutoCompleteField<any>;
     @Input() control!: FormControl;
-
     @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete!: MatAutocomplete;
     acControl = new FormControl();
@@ -27,16 +26,16 @@ export class DynamicFormFieldChipAutoCompleteComponent extends BaseUnsubscribeCo
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-    get controlValue(): any[] {
-        return this.control.value?.length
-            ? this.control.value : [];
-    }
-
     private _labelsResourcesPipe: LabelsResourcesPipe;
 
     constructor(appData: AppDataService, @Inject(ENVIRONMENT) env: IEnvironmentSettings) {
         super();
         this._labelsResourcesPipe = new LabelsResourcesPipe(appData, env);
+    }
+
+    get controlValue(): any[] {
+        return this.control.value?.length
+            ? this.control.value : [];
     }
 
     ngOnInit(): void {
@@ -93,28 +92,39 @@ export class DynamicFormFieldChipAutoCompleteComponent extends BaseUnsubscribeCo
         return '';
     }
 
+    getOptionFromValue(value: any): { labelKey?: string; label?: string; value: any } | undefined {
+        return this.field.options.find(o => o.value === value) ?? value;
+    }
+
     private _addValueToControl(value: string | null | undefined): void {
         if (value === undefined) { return; }
 
         const controlValue = this.controlValue;
-        controlValue.push(value ? value.trim() : value);
+        controlValue.push(value && this._isString(value) ? value.trim() : value);
         this.control.setValue(controlValue);
     }
 
-    private _filter(value: string): { labelKey?: string; label?: string; value: any }[] {
-        const filterValue = value.toLowerCase();
+    private _filter(value: string | any): { labelKey?: string; label?: string; value: any }[] {
+        const filterValue = this._isString(value) ? value.toLowerCase() : value;
         return this.field.options
-            .filter((op: { labelKey?: string; label?: string; value: any }) =>
-                (op.value
-                    ? op.value
-                    : this.getFalsyValueStringRep(op.value)
-                ).toLowerCase().indexOf(filterValue) !== -1
-            );
+            .filter((op: { labelKey?: string; label?: string; value: any }) => {
+                if (this._isString(op.value) || op.value === null || op.value === '') {
+                    return (!!op.value ? op.value : this.getFalsyValueStringRep(op.value))
+                        .toLowerCase()
+                        .indexOf(filterValue) !== -1;
+                }
+
+                return op.value === filterValue;
+            });
     }
 
     private _getLabel(valueKey: string | undefined, value: string | undefined): string {
         return valueKey
             ? this._labelsResourcesPipe.transform(valueKey)
             : value ?? '';
+    }
+
+    private _isString(value: string | any): boolean {
+        return typeof value === 'string';
     }
 }

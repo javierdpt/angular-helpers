@@ -39,7 +39,7 @@ export class DynamicFormService implements IDynamicFormService {
         return new FormGroup(group);
     }
 
-    createHiddenField<TEntity, TValue>(
+    createHiddenField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -99,7 +99,7 @@ export class DynamicFormService implements IDynamicFormService {
         return new TextAreaField(options);
     }
 
-    createDropdownField<TEntity, TValue>(
+    createDropdownField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -119,7 +119,7 @@ export class DynamicFormService implements IDynamicFormService {
         return new DropdownField<TValue>(options);
     }
 
-    createAutoCompleteField<TEntity, TValue>(
+    createAutoCompleteField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -199,7 +199,7 @@ export class DynamicFormService implements IDynamicFormService {
         return new ChipInputField(options);
     }
 
-    createChipAutoCompleteField<TEntity, TValue>(
+    createChipAutoCompleteField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -243,7 +243,7 @@ export class DynamicFormService implements IDynamicFormService {
         return new SlideToggleField(options);
     }
 
-    createArrayField<TEntity, TValue>(
+    createArrayField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -271,7 +271,7 @@ export class DynamicFormService implements IDynamicFormService {
 export interface IDynamicFormService {
     getFormGroup(fields: FormFieldBase<any>[]): FormGroup;
 
-    createHiddenField<TEntity, TValue>(
+    createHiddenField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -324,7 +324,7 @@ export interface IDynamicFormService {
         }
     ): TextAreaField;
 
-    createDropdownField<TEntity, TValue>(
+    createDropdownField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -396,7 +396,7 @@ export interface IDynamicFormService {
         }
     ): ChipInputField;
 
-    createChipAutoCompleteField<TEntity, TValue>(
+    createChipAutoCompleteField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;
@@ -435,7 +435,7 @@ export interface IDynamicFormService {
         }
     ): SlideToggleField;
 
-    createArrayField<TEntity, TValue>(
+    createArrayField<TEntity, TValue = any>(
         options: {
             key: keyof TEntity & string;
             label?: string;

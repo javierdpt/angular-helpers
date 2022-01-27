@@ -16,7 +16,16 @@
     <mat-chip-list #chipList>
         <mat-chip *ngFor="let value of controlValue; let i=index" [selectable]="true" [removable]="true"
             (removed)="remove(i)">
-            {{ !value ? getFalsyValueStringRep(value) : value }}
+            <ng-container *ngTemplateOutlet="optionTemp; context: { $implicit: getOptionFromValue(value) }">
+            </ng-container>
+            <ng-template #optionTemp let-option>
+                <ng-container *ngIf="option?.labelKey; else planeLabelCont">
+                    <span [resource]="option.labelKey"></span>
+                </ng-container>
+                <ng-template #planeLabelCont>
+                    <span>{{ option?.label || option }}</span>
+                </ng-template>
+            </ng-template>
             <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
 

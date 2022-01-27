@@ -9,6 +9,12 @@ import { FormFieldBase } from './dynamic-form.model';
 })
 export class DynamicFormComponent {
     @Input() class = '';
+    @Input() form!: FormGroup;
+
+    formFieldsSorted!: FormFieldBase<any>[];
+
+    private _formFields: FormFieldBase<any>[] = [];
+
     @HostBinding('class') get hostClasses(): string {
         return [
             this.class,
@@ -17,16 +23,13 @@ export class DynamicFormComponent {
         ].join(' ');
     }
 
-    @Input() form!: FormGroup;
+    get formFields(): FormFieldBase<any>[] {
+        return this._formFields;
+    }
 
-    formFieldsSorted!: FormFieldBase<any>[];
-    private _formFields: FormFieldBase<any>[] = [];
     @Input() set formFields(value: FormFieldBase<any>[]) {
         this._formFields = value;
         this.formFieldsSorted = [...this.formFields]
             .sort((a: FormFieldBase<any>, b: FormFieldBase<any>) => a.order - b.order);
-    }
-    get formFields(): FormFieldBase<any>[] {
-        return this._formFields;
     }
 }

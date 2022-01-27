@@ -24,8 +24,10 @@ export class DynamicFormFieldComponent {
     @Input() field!: FormFieldBase<any>;
     @Input() form!: FormGroup;
     @Input() fieldControl?: AbstractControl;
-
     @Input() class = '';
+
+    controlTypeEnum = ControlType;
+
     @HostBinding('class') get hostClasses(): string {
         return [
             this.class,
@@ -55,5 +57,4 @@ export class DynamicFormFieldComponent {
     get slideToggleCompleteField(): SlideToggleField { return this.field as SlideToggleField; }
     get arrayField(): ArrayField<any> { return this.field as ArrayField<any>; }
 
-    controlTypeEnum = ControlType;
 }
