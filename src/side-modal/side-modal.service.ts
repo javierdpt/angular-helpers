@@ -48,10 +48,10 @@ export class SideModalService {
     }
 
     viewContRefHideScrollBars<D = any>(configs: SideModalConfig<D>, animationTime: number = 300): void {
-        const parentElement = (configs.viewContainerRef?.element.nativeElement as HTMLElement)?.parentElement;
+        const parentElement = (configs.viewContainerRef?.element?.nativeElement as HTMLElement)?.parentElement;
         if (!parentElement) { return; }
         const parentCurrOverflow = parentElement.style.overflow;
-        parentElement!.style.overflow = 'hidden';
+        parentElement.style.overflow = 'hidden';
         timer(animationTime + 200).subscribe(() => {
             parentElement!.style.overflow = parentCurrOverflow;
         });
