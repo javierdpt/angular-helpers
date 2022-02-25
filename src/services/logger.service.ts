@@ -92,7 +92,7 @@ export class LoggerService {
 
     sayHi(): void {
         this._lg('*'.repeat(55));
-        this._lg('*' + this._utils.centerText(53, 'ASSURANT') + '*');
+        this._lg('*' + this._utils.centerText(53, 'COMPANY') + '*');
         this._lg('*' + ' Greetings human. You\'re an curious one' + ' '.repeat(14) + '*');
         this._lg('*' + '   Please check us out at https://www.company.com ' + ' '.repeat(2) + '*');
         this._lg('*' + '   For careers check https://jobs.company.com ' + ' '.repeat(6) + '*');
