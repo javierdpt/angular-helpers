@@ -62,7 +62,6 @@ export class LoggerService {
      *         true by default if `grouped` is not provided
      *
      *    E.g: http://localhost:4200/?enableTracing=true&tracingLevel=error&&grouped=false
-     *         https://dev.assurantrenters.com/?enableTracing=false
      */
     initEnableTracing(): void {
         this._init();
@@ -95,8 +94,8 @@ export class LoggerService {
         this._lg('*'.repeat(55));
         this._lg('*' + this._utils.centerText(53, 'ASSURANT') + '*');
         this._lg('*' + ' Greetings human. You\'re an curious one' + ' '.repeat(14) + '*');
-        this._lg('*' + '   Please check us out at https://www.assurant.com ' + ' '.repeat(2) + '*');
-        this._lg('*' + '   For careers check https://jobs.assurant.com ' + ' '.repeat(6) + '*');
+        this._lg('*' + '   Please check us out at https://www.company.com ' + ' '.repeat(2) + '*');
+        this._lg('*' + '   For careers check https://jobs.company.com ' + ' '.repeat(6) + '*');
         this._lg('*' + '   See you around :)' + ' '.repeat(33) + '*');
         this._lg('*'.repeat(55));
     }
