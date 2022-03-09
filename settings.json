@@ -1,0 +1,60 @@
+{
+    "workbench.settings.useSplitJSON": true,
+    "workbench.settings.editor": "json",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "all",
+    "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
+    "editor.wordWrap": "off",
+    // "editor.codeActionsOnSave": {
+    //     "source.organizeImports": true
+    // },
+    "[typescript]": {
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[sass]": {
+        "editor.tabSize": 4
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "git.autofetch": true,
+    "breadcrumbs.enabled": true,
+    "git.enableSmartCommit": true,
+    "explorer.confirmDragAndDrop": false,
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "terminal.integrated.scrollback": 5000,
+    "terminal.integrated.fontFamily": "'CaskaydiaCove NF', Consolas, 'Courier New', monospace",
+    "explorer.confirmDelete": false,
+    "tslint.alwaysShowRuleFailuresAsWarnings": true,
+    "cSpell.userWords": [
+    ],
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "workbench.startupEditor": "welcomePage",
+    "workbench.sideBar.location": "right",
+    "security.workspace.trust.untrustedFiles": "open",
+    "vscode-edge-devtools.mirrorEdits": true,
+    "git.confirmSync": false,
+    "gitlens.advanced.messages": {
+        "suppressImproperWorkspaceCasingWarning": true
+    }
+}
